@@ -3,6 +3,7 @@ import GameBoard from './Components/GameBoard';
 import React, { useState } from 'react'
 import InitialiseBoard from './Helpers/InitialiseBoard.js';
 import King from './Pieces/King';
+import Empty from './Pieces/Empty';
 
 function App() {
 
@@ -15,47 +16,51 @@ function App() {
   function handleClick(i) {    
     // console.log(squares);
 
-
     if (sourceSelection === -1) {
-      if (!squares[i] || squares[i].player !== player) {
+      if (squares[i].value === false || squares[i].player !== player) {
         setstatus("Wrong selection. Choose player " + player + " pieces.");
-        if (squares[i]) {
+        if (squares[i] === 1) {
+          // Change the background colours of desired squares
           squares[i].style = { ...squares[i].style, backgroundColor: "" };
+
         }
       }
       else {
+        // Change the background colours of desired squares
         squares[i].style = { ...squares[i].style, backgroundColor: "RGB(111,143,114)" }; 
+        for (var j=0; j<64; j++){
+          if (squares[i].isMovePossible(i, j, squares)) {
+            squares[i].style = { ...squares[i].style, backgroundColor: "RGB(111,143,114)" }; 
+
+
+          }
+        }
+
+
         setstatus("Choose destination for the selected piece");
         setsourceSelection(i);
       }
       return
     }
-
+    // Change the background colours of desired squares
     squares[sourceSelection].style = { ...squares[sourceSelection].style, backgroundColor: "" };
+    // squares[sourceSelection+1].style = { ...squares[sourceSelection+1].style, backgroundColor: "" };
 
-    if (squares[i] && squares[i].player === player) {
+
+    if ( squares[i].value === true && squares[i].player === player) {
       setstatus("Wrong selection. Choose valid source and destination again.");
       setsourceSelection(-1);
     }
     else {
 
-      const whiteFallenSoldiers = [];
-      const blackFallenSoldiers = [];
-      const isDestEnemyOccupied = Boolean(squares[i]);
+      const isDestEnemyOccupied = Boolean(squares[i].value);
       const isMovePossible = squares[sourceSelection].isMovePossible(sourceSelection, i, isDestEnemyOccupied);
 
       if (isMovePossible) {
-        if (squares[i] !== null) {
-          if (squares[i].player === 1) {
-            whiteFallenSoldiers.push(squares[i]);
-          }
-          else {
-            blackFallenSoldiers.push(squares[i]);
-          }
-        }
 
+        console.log(squares[i], squares[sourceSelection]);
         squares[i] = squares[sourceSelection];
-        squares[sourceSelection] = null;
+        squares[sourceSelection] = new Empty();  // past position is still visible.
 
         const isCheckMe = isCheckForPlayer(squares, player)
 
@@ -70,6 +75,7 @@ function App() {
         }
       }
       else {
+
         setstatus("Wrong selection. Choose valid source and destination again.");
         setsourceSelection(-1);
       }

@@ -4,7 +4,7 @@ import { isSameRow, isSameColumn, isPathClean } from '../Helpers'
 
 export default class Rook extends Piece {
   constructor(player) {
-    super(player, (player === 1 ? "https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg" : "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg"));
+    super(player, (player === 1 ? "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/white_rook.svg" : "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/black_rook.svg"));
   }
 
   isMovePossible(src, dest, squares) {

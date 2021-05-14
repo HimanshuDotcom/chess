@@ -3,7 +3,7 @@ import { isSameRow, isSameColumn, isSameDiagonal, isPathClean } from '../Helpers
 
 export default class Queen extends Piece {
   constructor(player) {
-    super(player, (player === 1 ? "https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg" : "https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg"));
+    super(player, (player === 1 ? "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/white_queen.svg" : "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/black_queen.svg"));
   }
 
   isMovePossible(src, dest, squares) {

@@ -1,16 +1,10 @@
 import Piece from './Piece.js';
 import { isSameDiagonal, isPathClean } from '../Helpers'
-import '../App.css';
 
 export default class Bishop extends Piece {
   constructor(player) {
-    // super(player, (player === 1 ? "https://upload.wikimeia.org/wikipedia/commons/b/b1/Chess_blt45.svg" : "https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg"));
-    super(player, (player === 1 
-      ? 
-      "https://upload.wikimedia.org/wikipedia/commons/4/49/Chess_qlt60.png" 
-      : 
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg"
-      ));
+    // super(player, (player === 1 ? "https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg" : "https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg"));
+    super(player, (player === 1 ? "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/white_bishop.svg" : "https://raw.githubusercontent.com/jsveron23/react-chess/71514ae59ecfc03f1276af84951091c9b0c8e831/src/chess/components/svg/black_bishop.svg"));
 
   }
 
@@ -18,6 +12,12 @@ export default class Bishop extends Piece {
     return isPathClean(this.getSrcToDestPath(src, dest), squares) && isSameDiagonal(src, dest)
   }
 
+  // /**
+  //  * get path between src and dest (src and dest exclusive)
+  //  * @param  {num} src  
+  //  * @param  {num} dest 
+  //  * @return {[array]}      
+  //  */
   getSrcToDestPath(src, dest) {
     let path = [], pathStart, pathEnd, incrementBy;
     if (src > dest) {

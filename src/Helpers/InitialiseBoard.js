@@ -4,9 +4,12 @@ import Knight from '../Pieces/Knight.js';
 import Pawn from '../Pieces/Pawn.js';
 import Queen from '../Pieces/Queen.js';
 import Rook from '../Pieces/Rook.js';
+import Empty from '../Pieces/Empty.js';
 
 function InitialiseBoard() {
-    const squares = Array(64).fill(null);
+    // const squares = Array(64).fill(null);
+    const squares = Array(64).fill(new Empty());
+
 
     for (let i = 8; i < 16; i++) {
         squares[i] = new Pawn(2);

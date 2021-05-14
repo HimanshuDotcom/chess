@@ -12,11 +12,13 @@ function GameBoard(props) {
         return <Square
           key={i}
           keyVal={i}
-          style={squares[i] ? squares[i].style : null}
+          style = {squares[i].style}
+
+          // style = {squares[i] ? squares[i].style : {width: '10%', height: '10vh'}} // change this bt  min(width , height) to make Responsive
           shade={squareShade}
           onClick={() => props.onClick(i)}
         />
-      }
+    }
     const squares = props.squares;
     const board = [];
     for (let i = 0; i < 8; i++) {
