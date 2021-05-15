@@ -109,7 +109,7 @@ function App() {
       if (isMovePossible) {
         console.log(squares[sourceSelection].__proto__.constructor.name, 'Steps on', squares[i].__proto__.constructor.name);
         if (squares[i].__proto__.constructor.name === 'King') {
-          var winningTeam = squares[sourceSelection].player === 0 ? 'BLACK' : 'WHITE';
+          var winningTeam = squares[sourceSelection].player === 1 ? 'WHITE' : 'BLACK';
           console.log(`%c ${winningTeam} WON !!`, "color:green; font-weight:bold");
           // alert(`${winningTeam} WON !!`); // Not working on deployed site.
           setkingLife(`${winningTeam} WON !!`);
