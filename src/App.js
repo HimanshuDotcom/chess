@@ -12,6 +12,7 @@ function App() {
   const [sourceSelection, setsourceSelection] = useState(-1);
   const [turn, setturn] = useState('white');
   const [status, setstatus] = useState('');
+  const [kingLife, setkingLife] = useState('');
 
   // Change the size of the board by change in viewport to make dynamic.
   var r = document.querySelector(':root');
@@ -45,13 +46,57 @@ function App() {
         console.log("Character:" ,squares[i].__proto__.constructor.name);
         console.log("Player:", squares[i].player);
 
+
+
+
+
+
+        // for(var j=0; j < 64; j++) {
+        //   if (squares[i].__proto__.constructor.name === 'Pawn') {
+        //     if (squares[i].isMovePossible(i, j, true)) {
+        //       console.log(`Piece could kill ${j} `);
+        //       // squares[j].style = { ...squares[j].style, backgroundColor: "RGB(111,143,114)" }; 
+        //     }
+        //     if (squares[i].isMovePossible(i, j, false)) {
+        //       console.log(`Piece can move to ${j} `);
+        //       // squares[j].style = { ...squares[j].style, backgroundColor: "RGB(111,143,114)" }; 
+        //     }
+        //   } 
+        //   else if(squares[i].__proto__.constructor.name === 'Bishop' || squares[i].__proto__.constructor.name === 'Queen' || squares[i].__proto__.constructor.name === 'Rook'){
+        //     if (squares[i].isMovePossible(i, j, squares)) {
+        //       console.log(`Piece can move to ${j} `);
+        //       squares[j].style = { ...squares[j].style, backgroundColor: "RGB(111,143,114)" }; 
+        //     }
+        //   }
+        //   else {
+        //     if (squares[i].isMovePossible(i, j)) {
+        //       console.log(`Piece can move to ${j} `);
+        //       squares[j].style = { ...squares[j].style, backgroundColor: "RGB(111,143,114)" }; 
+        //     }
+        //   }
+
+        // }
+
+
+
+
+
+
         setstatus("Choose destination for the selected piece");
         setsourceSelection(i);
       }
       return
     }
+
+
+
     // Change the background colours of desired squares
     squares[sourceSelection].style = { ...squares[sourceSelection].style, backgroundColor: "" };
+    // for(var k=0; k < 64; k++) {
+    //   squares[k].style = { ...squares[k].style, backgroundColor: "" }; 
+    // }
+
+
 
     if ( squares[i].value === true && squares[i].player === player) {
       setstatus("Wrong selection. Choose valid source and destination again.");
@@ -61,15 +106,13 @@ function App() {
 
       const isDestEnemyOccupied = Boolean(squares[i].value);
       const isMovePossible = squares[sourceSelection].isMovePossible(sourceSelection, i, isDestEnemyOccupied);
-      // maybe here console loggin will help.
       if (isMovePossible) {
-
-        // console.log(sourceSelection, 'goes to', i);
         console.log(squares[sourceSelection].__proto__.constructor.name, 'Steps on', squares[i].__proto__.constructor.name);
         if (squares[i].__proto__.constructor.name === 'King') {
           var killed = squares[sourceSelection].player === 1 ? 'BLACK' : 'WHITE';
           console.log(`%c ${killed} KING KILLED !!`, "color:red; font-weight:bold");
-          alert(`${killed} KING KILLED !!`);
+          // alert(`${killed} KING KILLED !!`); // Not working on deployed site.
+          setkingLife(`${killed} KING KILLED !!`);
         }
         squares[i] = squares[sourceSelection];
         squares[sourceSelection] = new Empty();  
@@ -135,6 +178,9 @@ function App() {
         <div style={{backgroundColor:'black', width:'calc(var(--sizeBoard) /80)', marginLeft:'1%', marginRight:'1%'}}/>
         <div style={{ display:'flex', alignItems:'center',width:'30%'}}>
           {status}
+        </div>
+        <div style={{ display:'flex', alignItems:'center',width:'30%'}}>
+          {kingLife}
         </div>
       </div>
 

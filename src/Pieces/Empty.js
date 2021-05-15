@@ -4,9 +4,9 @@ export default class Empty {
 
       this.value = false;
     }
-    isMovePossible(src, dest, squares) {
-      return true
-    }
+    // isMovePossible(src, dest, squares) {
+    //   return false
+    // }
     getPlayer() {
       return this.player
     }
