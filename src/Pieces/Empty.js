@@ -1,6 +1,6 @@
 export default class Empty {
     constructor() {
-      this.style = { backgroundImage: "transparent", width:'10%', height: '10vh' };
+      this.style = { backgroundcolor: "black", width:'10%', height: '10vh' };
       this.value = false;
     }
     isMovePossible(src, dest, squares) {
@@ -8,5 +8,8 @@ export default class Empty {
     }
     getPlayer() {
       return this.player
+    }
+    getSrcToDestPath() {
+      return [];
     }
 }

@@ -14,29 +14,28 @@ function App() {
   const [status, setstatus] = useState('');
 
   function handleClick(i) {    
-    // console.log(squares);
 
     if (sourceSelection === -1) {
       if (squares[i].value === false || squares[i].player !== player) {
         setstatus("Wrong selection. Choose player " + player + " pieces.");
-        if (squares[i] === 1) {
+        if (squares[i].value === true) {
           // Change the background colours of desired squares
           squares[i].style = { ...squares[i].style, backgroundColor: "" };
-
         }
       }
       else {
         // Change the background colours of desired squares
         squares[i].style = { ...squares[i].style, backgroundColor: "RGB(111,143,114)" }; 
-        for (var j=0; j<64; j++){
+
+
+        // Trying to change the colour
+        for (var j=0; j < 64; j++) {
           if (squares[i].isMovePossible(i, j, squares)) {
-            squares[i].style = { ...squares[i].style, backgroundColor: "RGB(111,143,114)" }; 
-
-
+            console.log(j);
           }
         }
 
-
+        
         setstatus("Choose destination for the selected piece");
         setsourceSelection(i);
       }
@@ -44,7 +43,6 @@ function App() {
     }
     // Change the background colours of desired squares
     squares[sourceSelection].style = { ...squares[sourceSelection].style, backgroundColor: "" };
-    // squares[sourceSelection+1].style = { ...squares[sourceSelection+1].style, backgroundColor: "" };
 
 
     if ( squares[i].value === true && squares[i].player === player) {
@@ -58,9 +56,14 @@ function App() {
 
       if (isMovePossible) {
 
-        console.log(squares[i], squares[sourceSelection]);
+        console.log(sourceSelection, 'goes to', i);
+        console.log(squares[sourceSelection].__proto__.constructor.name, 'Steps on', squares[i].__proto__.constructor.name);
+        if (squares[i].__proto__.constructor.name === 'King') {
+          console.log("%c KING KILLED", "color:red; font-weight:bold");
+          alert('KING KILLED!!');
+        }
         squares[i] = squares[sourceSelection];
-        squares[sourceSelection] = new Empty();  // past position is still visible.
+        squares[sourceSelection] = new Empty();  
 
         const isCheckMe = isCheckForPlayer(squares, player)
 
@@ -84,7 +87,7 @@ function App() {
   function getKingPosition(squares, player) {
     return squares.reduce((acc, curr, i) =>
       acc || //King may be only one, if we had found it, returned his position
-      ((curr //current squre mustn't be a null
+      ((curr //current square must not be of value null
         && (curr.getPlayer() === player)) //we are looking for aspecial king 
         && (curr instanceof King)
         && i), // returned position if all conditions are completed
@@ -114,10 +117,18 @@ function App() {
             />
           </div>
       </div>
-      <h3>Turn</h3>
-      <div id="player-turn-box" style={{ backgroundColor: turn }}>
-      <div className="game-status">{status}</div>
+
+      <div style={{ display:'flex'}}>
+        <div style={{ display:'flex', flexDirection:'column', alignItems:'center'}} >
+          <p style={{fontSize:'large', fontWeight:'600'}}>Turn</p>
+          <div id="player-turn-box" style={{ backgroundColor: turn }}/>
+        </div>
+        <div style={{backgroundColor:'black', width:'0.5%', marginLeft:'1%', marginRight:'1%'}}/>
+        <div style={{ display:'flex', alignItems:'center',width:'30%'}}>
+          {status}
+        </div>
       </div>
+
 
     </div>
   );
