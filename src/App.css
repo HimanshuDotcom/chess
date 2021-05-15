@@ -1,16 +1,15 @@
 .App {
 }
 
+:root {
+  --sizeBoard: 60vh;
+}
+
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
   background-color: #d1d1d1;
 }
-/* 
-ol,
-ul {
-  padding-left: 30px;
-} */
 
 .board-row:after {
   clear: both;
@@ -25,8 +24,6 @@ ul {
   font-size: 34px;
   font-weight: bold;
   line-height: 34px;
-  height: 48px;
-  width: 48px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
@@ -50,7 +47,7 @@ ul {
 }
 
 #player-turn-box {
-  width: 32px;
-  height: 32px;
+  width: calc(var(--sizeBoard) / 16);
+  height: calc(var(--sizeBoard) / 16);
   border: 1px solid #000;
 }

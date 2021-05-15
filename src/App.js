@@ -7,11 +7,26 @@ import Empty from './Pieces/Empty';
 
 function App() {
 
-  const [squares, setsquares] = useState(InitialiseBoard());
+  const [squares] = useState(InitialiseBoard());
   const [player, setplayer] = useState(1);
   const [sourceSelection, setsourceSelection] = useState(-1);
   const [turn, setturn] = useState('white');
   const [status, setstatus] = useState('');
+
+  // Change the size of the board by change in viewport to make dynamic.
+  var r = document.querySelector(':root');
+  (function() {
+    window.onresize = displayWindowSize;
+    window.onload = displayWindowSize;
+  
+    function displayWindowSize() {
+      let myWidth = window.innerWidth;
+      let myHeight = window.innerHeight;
+      var size = Math.min(myWidth, myHeight)/10;
+      r.style.setProperty('--sizeBoard', size + 'vh');
+    };
+  
+  })();
 
   function handleClick(i) {    
 
@@ -27,15 +42,9 @@ function App() {
         // Change the background colours of desired squares
         squares[i].style = { ...squares[i].style, backgroundColor: "RGB(111,143,114)" }; 
 
+        console.log("Character:" ,squares[i].__proto__.constructor.name);
+        console.log("Player:", squares[i].player);
 
-        // Trying to change the colour
-        for (var j=0; j < 64; j++) {
-          if (squares[i].isMovePossible(i, j, squares)) {
-            console.log(j);
-          }
-        }
-
-        
         setstatus("Choose destination for the selected piece");
         setsourceSelection(i);
       }
@@ -43,7 +52,6 @@ function App() {
     }
     // Change the background colours of desired squares
     squares[sourceSelection].style = { ...squares[sourceSelection].style, backgroundColor: "" };
-
 
     if ( squares[i].value === true && squares[i].player === player) {
       setstatus("Wrong selection. Choose valid source and destination again.");
@@ -53,14 +61,15 @@ function App() {
 
       const isDestEnemyOccupied = Boolean(squares[i].value);
       const isMovePossible = squares[sourceSelection].isMovePossible(sourceSelection, i, isDestEnemyOccupied);
-
+      // maybe here console loggin will help.
       if (isMovePossible) {
 
-        console.log(sourceSelection, 'goes to', i);
+        // console.log(sourceSelection, 'goes to', i);
         console.log(squares[sourceSelection].__proto__.constructor.name, 'Steps on', squares[i].__proto__.constructor.name);
         if (squares[i].__proto__.constructor.name === 'King') {
-          console.log("%c KING KILLED", "color:red; font-weight:bold");
-          alert('KING KILLED!!');
+          var killed = squares[sourceSelection].player === 1 ? 'BLACK' : 'WHITE';
+          console.log(`%c ${killed} KING KILLED !!`, "color:red; font-weight:bold");
+          alert(`${killed} KING KILLED !!`);
         }
         squares[i] = squares[sourceSelection];
         squares[sourceSelection] = new Empty();  
@@ -123,7 +132,7 @@ function App() {
           <p style={{fontSize:'large', fontWeight:'600'}}>Turn</p>
           <div id="player-turn-box" style={{ backgroundColor: turn }}/>
         </div>
-        <div style={{backgroundColor:'black', width:'0.5%', marginLeft:'1%', marginRight:'1%'}}/>
+        <div style={{backgroundColor:'black', width:'calc(var(--sizeBoard) /80)', marginLeft:'1%', marginRight:'1%'}}/>
         <div style={{ display:'flex', alignItems:'center',width:'30%'}}>
           {status}
         </div>

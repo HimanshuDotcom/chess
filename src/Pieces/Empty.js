@@ -1,6 +1,7 @@
 export default class Empty {
     constructor() {
-      this.style = { backgroundcolor: "black", width:'10%', height: '10vh' };
+      this.style = { backgroundcolor: "black", width: 'calc(var(--sizeBoard) /8)', height: 'calc(var(--sizeBoard) /8)' };
+
       this.value = false;
     }
     isMovePossible(src, dest, squares) {
