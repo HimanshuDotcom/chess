@@ -109,10 +109,10 @@ function App() {
       if (isMovePossible) {
         console.log(squares[sourceSelection].__proto__.constructor.name, 'Steps on', squares[i].__proto__.constructor.name);
         if (squares[i].__proto__.constructor.name === 'King') {
-          var killed = squares[sourceSelection].player === 1 ? 'BLACK' : 'WHITE';
-          console.log(`%c ${killed} KING KILLED !!`, "color:red; font-weight:bold");
-          // alert(`${killed} KING KILLED !!`); // Not working on deployed site.
-          setkingLife(`${killed} KING KILLED !!`);
+          var winningTeam = squares[sourceSelection].player === 0 ? 'BLACK' : 'WHITE';
+          console.log(`%c ${winningTeam} WON !!`, "color:green; font-weight:bold");
+          // alert(`${winningTeam} WON !!`); // Not working on deployed site.
+          setkingLife(`${winningTeam} WON !!`);
         }
         squares[i] = squares[sourceSelection];
         squares[sourceSelection] = new Empty();  
