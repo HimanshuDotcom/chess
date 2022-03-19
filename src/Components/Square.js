@@ -1,6 +1,7 @@
 import React from 'react'
 import '../App.css';
 
+// button
 function Square(props) {
     return (
         <button className={"square " + props.shade}
